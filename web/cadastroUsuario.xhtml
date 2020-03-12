@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formCadUsuario">
+            <p:growl showDetail="true"/>
+            <p:fieldset legend="Cadastro de Usuario">
+                <p:panelGrid columns="3">
+                    <h:outputText value="Nome:"></h:outputText>
+                    <p:inputText id="txtNome" value="#{usuarioController.cadastro.nome}"
+                                 required="true" requiredMessage="O nome é obrigatório"></p:inputText>
+                    <p:message id="msgNome" for="txtNome"/>
+
+                    <h:outputText value="Cpf"/>
+                    <p:inputText id="txtCpf" value="#{usuarioController.cadastro.cpf}"
+                                 required="true" requiredMessage="O cpf é obrigatório"/>
+                    <p:message for="txtCpf"/>
+
+                    <h:outputText value="Email"/>
+                    <p:inputText value="#{usuarioController.cadastro.email}"/>
+                    <h:outputText/>
+
+                    <h:outputText value="Senha"/>
+                    <p:inputTextarea value="#{usuarioController.cadastro.senha}"/>                    
+                    <h:outputText/>
+
+                    <h:outputText value="Endereço"/>
+                    <p:inputTextarea value="#{usuarioController.cadastro.endereco}"/>                    
+                    <h:outputText/>
+
+                    <h:outputText value="Cep"/>
+                    <p:inputTextarea value="#{usuarioController.cadastro.cep}"/>                    
+                    <h:outputText/>
+
+                    <h:outputText value="Telefone"/>
+                    <p:inputTextarea value="#{usuarioController.cadastro.telefone}"/>                    
+                    <h:outputText/>
+
+                </p:panelGrid>
+                <p:commandButton value="Cadastrar" oncomplete="PF('widDialCadUsuario').show()"/>
+            </p:fieldset>
+            <p:dialog id="dialCadUsuario" visible="false" modal="true"
+                      resizable="false" 
+                      widgetVar="widDialCadUsuario">
+                <f:facet name="header">
+                    Atenção!!!
+                </f:facet>
+
+                <h:outputText value="Você realmente deseja cadastrar este Usuário?"/><br/>
+                <p:separator/>
+                <p:commandButton value="sim" action="#{usuarioController.inserir()}"
+                                 oncomplete="PF('widDialCadProduto').hide()"
+                                 update="@form"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadUsuario').hide()"/>
+
+            </p:dialog>
+        </h:form>
+
+    </h:body>
+</html>
+

@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formApresentaUsuario">
+
+            <p:dataTable id="tabela" var="item" 
+                         value="#{usuarioController.recuperarTodos()}"
+                         paginator="true" rows="5" rowKey="#{item.codigo}"
+                         selectionMode="single" selection="#{usuarioController.selected}">
+
+                <p:column>                  
+                    <f:facet name="footer">
+                        Usuários Cadastrados
+                    </f:facet>
+
+                </p:column>
+                <p:column headerText="Código" sortBy="#{item.codigo}">
+                    #{item.codigo}
+                </p:column>
+                <p:column filterBy="#{item.nome}">
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                    #{item.nome}
+                </p:column>
+                <p:column headerText="Cpf">
+                    #{item.cpf}
+                </p:column>
+                <p:column headerText="E-Mail">
+                    #{item.email}
+                </p:column>                 
+                <p:column headerText="Endereço">
+                    #{item.endereco}
+                </p:column>
+                <p:column headerText="Cep">
+                    #{item.cep}
+                </p:column>
+                <p:column headerText="Telefone">
+                    #{item.telefone}
+                </p:column>
+
+            </p:dataTable>
+            <p:commandButton value="Apresentar" oncomplete="PF('widDialApresentaUsuario').show()"
+                             update="dialApresentaUsuario"/>
+            <p:dialog id="dialApresentaUsuario" visible="false" modal="false"
+                      resizable="false" widgetVar="widDialApresentaUsuario">
+
+                <p:panelGrid columns="2">
+                    <h:outputText value="Código:"/>
+                    <h:outputText value="#{usuarioController.selected.codigo}"/>
+
+                    <h:outputText value="Nome:"/>
+                    <h:outputText value="#{usuarioController.selected.nome}"/>
+
+                    <h:outputText value="Cpf"/>
+                    <h:outputText value="#{usuarioController.selected.cpf}"/>
+
+                    <h:outputText value="Email"/>
+                    <h:outputText value="#{usuarioController.selected.email}"/>
+
+                    <h:outputText value="Endereço"/>
+                    <h:outputText value="#{usuarioController.selected.endereco}"/>
+
+                    <h:outputText value="Cep"/>
+                    <h:outputText value="#{usuarioController.selected.cep}"/>
+
+                    <h:outputText value="Telefone"/>
+                    <h:outputText value="#{usuarioController.selected.telefone}"/>
+
+
+                </p:panelGrid>
+
+                <p:commandButton value="close" oncomplete="PF('widDialApresentaUsuario').hide()"/>
+
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+

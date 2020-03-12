@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formCadProduto">
+            <p:growl showDetail="true"/>
+            <p:fieldset legend="Cadastro de Produto">
+                <p:panelGrid columns="3">
+                    <h:outputText value="Nome:"></h:outputText>
+                    <p:inputText id="txtNome" value="#{produtoController.cadastro.nome}"
+                                 required="true" requiredMessage="O nome é obrigatório"></p:inputText>
+                    <p:message id="msgNome" for="txtNome"/>
+
+                    <h:outputText value="Marca:"/>
+                    <p:inputText id="txtMarca" value="#{produtoController.cadastro.marca}"
+                                 required="true" requiredMessage="A Marca é obrigatória"/>
+                    <p:message for="txtMarca"/>
+
+                    <h:outputText value="Categoria:"/>
+                    <p:inputText value="#{produtoController.cadastro.categoria}"/>
+                    <h:outputText/>
+
+                    <h:outputText value="Descrição"/>
+                    <p:inputTextarea value="#{produtoController.cadastro.descricao}"/>
+                    <h:outputText/>
+
+                </p:panelGrid>
+                <p:commandButton value="Cadastrar" oncomplete="PF('widDialCadProduto').show()"/>
+            </p:fieldset>
+            <p:dialog id="dialCadProduto" visible="false" modal="true"
+                      resizable="false" 
+                      widgetVar="widDialCadProduto">
+                <f:facet name="header">
+                    Atenção!!!
+                </f:facet>
+
+
+                <h:outputText value="Você realmente deseja cadastrar este produto?"/><br/>
+                <p:separator/>
+                <p:commandButton value="sim" action="#{produtoController.inserir()}"
+                                 oncomplete="PF('widDialCadProduto').hide()"
+                                 update="@form"/>
+                <p:commandButton value="não" oncomplete="PF('widDialCadProduto').hide()"/>
+
+            </p:dialog>
+        </h:form>
+
+
+    </h:body>
+</html>
+

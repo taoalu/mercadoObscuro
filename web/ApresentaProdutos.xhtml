@@ -1,0 +1,71 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form id="formApresentaProduto">
+
+            <p:dataTable id="tabela" var="item" 
+                         value="#{produtoController.recuperarTodos()}"
+                         paginator="true" rows="5" rowKey="#{item.codigo}"
+                         selectionMode="single" selection="#{produtoController.selected}">
+
+                <p:column>
+                    <f:facet name="header">
+                        Produtos
+                    </f:facet>
+                    <f:facet name="footer">
+                        ROda ppé
+                    </f:facet>
+
+                </p:column>
+                <p:column headerText="Código" sortBy="#{item.codigo}">
+                    #{item.codigo}
+                </p:column>
+                <p:column filterBy="#{item.nome}">
+                    <f:facet name="header">
+                        Nome
+                    </f:facet>
+                    #{item.nome}
+                </p:column>
+                <p:column headerText="Marca">
+                    #{item.marca}
+                </p:column>
+                <p:column headerText="Categoria">
+                    #{item.categoria}
+                </p:column>
+
+            </p:dataTable>
+            <p:commandButton value="Apresentar" oncomplete="PF('widDialApresentaProduto').show()"
+                             update="dialApresentaProduto"/>
+            <p:dialog id="dialApresentaProduto" visible="false" modal="false"
+                      resizable="false" widgetVar="widDialApresentaProduto">
+
+                <p:panelGrid columns="2">
+                    <h:outputText value="Código:"/>
+                    <h:outputText value="#{produtoController.selected.codigo}"/>
+
+                    <h:outputText value="Nome:"/>
+                    <h:outputText value="#{produtoController.selected.nome}"/>
+
+                    <h:outputText value="Marca:"/>
+                    <h:outputText value="#{produtoController.selected.marca}"/>
+
+                    <h:outputText value="Categoria:"/>
+                    <h:outputText value="#{produtoController.selected.categoria}"/>
+
+                    <h:outputText value="Descrição:"/>
+                    <h:outputText value="#{produtoController.selected.descricao}"/>
+                </p:panelGrid>
+
+                <p:commandButton value="close" oncomplete="PF('widDialApresentaProduto').hide()"/>
+            </p:dialog>
+        </h:form>
+    </h:body>
+</html>
+
